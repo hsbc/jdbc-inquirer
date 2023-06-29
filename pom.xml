@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
@@ -9,10 +10,35 @@
   <version>1.0-SNAPSHOT</version>
 
   <name>jdbc-inquirer</name>
-  
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+      <comments>A business-friendly OSS license</comments>
+    </license>
+  </licenses>
+
   <organization>
     <name>Parjanya Mudunuri</name>
+    <url>https://github.com/hsbc</url>
   </organization>
+
+  <developers>
+    <developer>
+      <name>Parjanya Mudunuri</name>
+      <organization>HSBC</organization>
+      <organizationUrl>https://www.hsbc.com/</organizationUrl>
+    </developer>
+  </developers>
+
+  <scm>
+    <url>https://github.com/hsbc/jdbc-inquirer</url>
+    <connection>scm:git:git@github.com:hsbc/jdbc-inquirer.git</connection>
+    <developerConnection>scm:git:git@github.com:hsbc/jdbc-inquirer.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -47,11 +73,6 @@
       <version>2.1.214</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>io.trino</groupId>
-      <artifactId>trino-jdbc</artifactId>
-      <version>409</version>
-    </dependency>
   </dependencies>
 
   <build>
@@ -83,7 +104,8 @@
         </configuration>
       </plugin>
       <!-- Include JDBC jars that you want to download for testing -->
-      <plugin>
+      <!-- Examples of supplying artifacts -->
+      <!--plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
         <version>3.5.0</version>
@@ -94,11 +116,10 @@
             <goals>
               <goal>copy</goal>
             </goals>
-            
+
             <configuration>
               <artifactItems>
-                <!-- Examples of supplying artifacts -->
-                <!--artifactItem>
+                <artifactItem>
                   <groupId>org.apache.hive</groupId>
                   <artifactId>hive-jdbc</artifactId>
                   <version>3.1.2</version>
@@ -106,14 +127,14 @@
                   <type>jar</type>
                   <overWrite>true</overWrite>
                   <outputDirectory>${project.build.directory}/</outputDirectory>
-                </artifactItem-->
+                </artifactItem>
               </artifactItems>
               <overWriteReleases>true</overWriteReleases>
               <overWriteSnapshots>true</overWriteSnapshots>
             </configuration>
           </execution>
         </executions>
-      </plugin>
+      </plugin-->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
@@ -165,14 +186,14 @@
           <tagNameFormat>@{project.version}</tagNameFormat>
         </configuration>
       </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <configuration>
-                <source>11</source>
-                <target>11</target>
-            </configuration>
-        </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>11</source>
+          <target>11</target>
+        </configuration>
+      </plugin>
     </plugins>
     <pluginManagement>
       <plugins>
@@ -195,4 +216,15 @@
       </plugins>
     </pluginManagement>
   </build>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
 </project>
