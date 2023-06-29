@@ -97,7 +97,8 @@
             
             <configuration>
               <artifactItems>
-                <artifactItem>
+                <!-- Examples of supplying artifacts -->
+                <!--artifactItem>
                   <groupId>org.apache.hive</groupId>
                   <artifactId>hive-jdbc</artifactId>
                   <version>3.1.2</version>
@@ -105,15 +106,7 @@
                   <type>jar</type>
                   <overWrite>true</overWrite>
                   <outputDirectory>${project.build.directory}/</outputDirectory>
-                </artifactItem>
-                <artifactItem>
-                    <groupId>io.trino</groupId>
-                    <artifactId>trino-jdbc</artifactId>
-                    <version>409</version>
-                    <type>jar</type>
-                    <overWrite>true</overWrite>
-                    <outputDirectory>${project.build.directory}/</outputDirectory>
-                </artifactItem>
+                </artifactItem-->
               </artifactItems>
               <overWriteReleases>true</overWriteReleases>
               <overWriteSnapshots>true</overWriteSnapshots>
