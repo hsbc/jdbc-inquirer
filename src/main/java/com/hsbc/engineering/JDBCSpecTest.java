@@ -15,6 +15,10 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * <p>JDBCSpecTest class.</p>
+ *
+ */
 public class JDBCSpecTest {
 
     @DisplayName("Checks if tables can be extracted via jdbc")
@@ -37,6 +41,7 @@ public class JDBCSpecTest {
         finally {
             assertNotEquals(count, 0);
         }
+    /** {@inheritDoc} */
     }
 }
 

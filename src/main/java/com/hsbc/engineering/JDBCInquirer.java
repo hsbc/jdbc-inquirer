@@ -48,8 +48,8 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPacka
  * java -cp "target/*" -DJDBC_CLASS_NAME="org.apache.hive.jdbc.HiveDriver" -DJDBC_USER="I_AM_A_USER" -DJDBC_PASSWORD="I_AM_A_TOKEN" -DJDBC_URL="jdbc:hive2://server:9999/schema" com.hsbc.engineering.JDBCInquirer
  * java -cp "target/*" -DJDBC_CLASS_NAME="org.apache.hive.jdbc.HiveDriver" -DJDBC_USER="I_AM_A_USER" -DJDBC_PASSWORD="I_AM_A_TOKEN" -DJDBC_URL="jdbc:hive2://server:9999/schema" -DJDBC_SQL="show databases" -DRUN_PERFORMANCE_EXTRACTION_TEST='true' com.hsbc.engineering.JDBCInquirer
  * </pre>
-**/
-
+ *
+ */
 public class JDBCInquirer {
     /**
      * Default logger
@@ -58,8 +58,9 @@ public class JDBCInquirer {
 
     /**
      * Default main method
+     *
      * @param args This is not used
-     * @throws ClassNotFoundException Raised if the driver class is not found
+     * @throws java.lang.ClassNotFoundException Raised if the driver class is not found
      * @throws SQLException Raised if the SQL to be run can't be executed
      */
     public static void main( String[] args ) throws ClassNotFoundException, SQLException {
@@ -92,6 +93,7 @@ public class JDBCInquirer {
 
     /**
      * Gets a jdbc connection
+     * 
      * @param arguments The list of arguments to connect to the database
      * @return Connection to the database
      * @throws ClassNotFoundException Raised if the driver class is not found
@@ -116,8 +118,9 @@ public class JDBCInquirer {
 
     /**
      * Does a simple database connection test and runs a SQL. Records are then printed out
+     *
      * @param arguments The list of arguments to connect to the database
-     * @throws ClassNotFoundException Raised if the driver class is not found
+     * @throws java.lang.ClassNotFoundException Raised if the driver class is not found
      * @throws SQLException Raised if there is a connection issue
      */
     public static void runSimpleConnectionTest(Map<String, String> arguments) throws ClassNotFoundException, SQLException {
@@ -140,8 +143,9 @@ public class JDBCInquirer {
 
     /**
      * Times how long it takes to extract all columns and rows and write to an empty stream
+     *
      * @param arguments The list of arguments to connect to the database
-     * @throws ClassNotFoundException Raised if the driver class is not found
+     * @throws java.lang.ClassNotFoundException Raised if the driver class is not found
      * @throws SQLException Raised if there is a connection issue
      */
     public static void timeExtractionTest(Map<String, String> arguments) throws ClassNotFoundException, SQLException {
@@ -175,6 +179,9 @@ public class JDBCInquirer {
         conn.close();
     }
 
+    /**
+     * <p>Runs tests to test the JDBC spec.</p>
+     */
     public static void runExtendedTests() {
         System.out.println("Starting tests ---");
 

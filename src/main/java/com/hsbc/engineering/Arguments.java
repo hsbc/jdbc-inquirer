@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 /**
  * Reads in arguments - via environment variables or system properties. Checks for nulls.
+ *
  */
 public class Arguments {
     /**
@@ -46,12 +47,17 @@ public class Arguments {
      */
     final static String DEFAULT_SQL         = "SELECT '1'";
 
+    /** Constant <code>RUN_EXTENDED_TESTS="RUN_EXTENDED_TESTS"</code> */
     public final static String RUN_EXTENDED_TESTS = "RUN_EXTENDED_TESTS";
+    /** Constant <code>RUN_PERFORMANCE_EXTRACTION_TEST="RUN_PERFORMANCE_EXTRACTION_TEST"</code> */
     public final static String RUN_PERFORMANCE_EXTRACTION_TEST = "RUN_PERFORMANCE_EXTRACTION_TEST";
     static boolean bool_run_extended_tests = false;
     static boolean bool_run_performance_extraction_test = false;
     private Map<String, String> arguments;
 
+    /**
+     * <p>Constructor for Arguments.</p>
+     */
     public Arguments() {
         if (System.getenv().containsKey(CLASS_NAME)) {
             logger.log(Level.INFO, "Found environment variables set and using variables");
@@ -69,9 +75,20 @@ public class Arguments {
         }
     }
 
+    /**
+     * <p>Constructor for Arguments.</p>
+     *
+     * @param systemEnvs a {@link java.util.Map} object
+     */
     public Arguments(Map<String, String> systemEnvs) {
         set(systemEnvs);
     }
+    /**
+     * <p>set.</p>
+     *
+     * @param systemEnvs a {@link java.util.Map} object
+     * @return a {@link java.util.Map} object
+     */
     public Map<String, String> set(Map<String, String> systemEnvs) {
         final boolean bool_run_extended_tests = Boolean.parseBoolean(systemEnvs.get(RUN_EXTENDED_TESTS));
         String sqlQuery = isNullAndEmpty(systemEnvs.get(SQL)) ? DEFAULT_SQL : systemEnvs.get(SQL);
@@ -103,16 +120,28 @@ public class Arguments {
         return this.arguments;
     }
 
+    /**
+     * <p>Gets the arguments object</p>
+     *
+     * @return a {@link java.util.Map} object
+     */
     public Map<String, String> get() {
         return  this.arguments;
     }
 
+    /**
+     * <p>Gets an item from the arguments object</p>
+     *
+     * @param key a {@link java.lang.String} object
+     * @return a {@link java.lang.String} object
+     */
     public String getItem(String key) {
         return  this.arguments.get(key);
     }
 
     /**
      * Runs a validation against inputs to ensure all args are there
+     *
      * @param arguments The input args to validate against
      */
     public void checkForNulls(Map<String, String> arguments) {
@@ -152,6 +181,12 @@ public class Arguments {
         throw new NullPointerException("Mandatory fields are not registered");
     }
 
+    /**
+     * <p>Checks if string is null or empty</p>
+     *
+     * @param s a {@link java.lang.String} object
+     * @return a boolean
+     */
     public boolean isNullAndEmpty(String s) {
         if (Objects.isNull(s) || s.isBlank() || s.isEmpty() || (s.trim().length() < 1))
             return true;
