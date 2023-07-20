@@ -8,8 +8,9 @@
   <groupId>com.hsbc.engineering</groupId>
   <artifactId>jdbc-inquirer</artifactId>
   <version>1.0-SNAPSHOT</version>
-
   <name>jdbc-inquirer</name>
+  <description>Tests jdbc connectivity to a source. Useful in an environment that has multiple firewalls/networks.</description>
+  <url>https://github.com/hsbc/jdbc-inquirer</url>
 
   <licenses>
     <license>
