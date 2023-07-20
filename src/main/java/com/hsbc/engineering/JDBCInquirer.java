@@ -21,10 +21,10 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPacka
 /**
  * This is for testing JDBC Connections. The program will connect to a JDBC data source and then run {@code "SELECT 1"}.
  *
- * JDBC Inquirer - tests connection via JDBC and also checks if JDBC specs are met <br />
+ * JDBC Inquirer - tests connection via JDBC and also checks if JDBC specs are met <br>
  *
- * SYNOPSIS <br />
- * Using system properties: <br />
+ * SYNOPSIS <br>
+ * Using system properties: <br>
  * <pre>
  * java -cp [directory that contains this jar and the jdbc jars] -DJDBC_CLASS_NAME='jdbc_class_name' -DJDBC_URL='url' -DJDBC_USER='user (optional)' -DJDBC_PASSWORD='password (optional)' -DJDBC_SQL='optional sql to run' -DRUN_PERFORMANCE_EXTRACTION_TEST='optional to set true/false' com.hsbc.engineering.JDBCInquirer
  * </pre>
