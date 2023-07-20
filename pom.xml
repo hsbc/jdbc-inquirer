@@ -35,9 +35,7 @@
 
   <scm>
     <url>https://github.com/hsbc/jdbc-inquirer</url>
-    <connection>scm:git:git@github.com:hsbc/jdbc-inquirer.git</connection>
-    <developerConnection>scm:git:git@github.com:hsbc/jdbc-inquirer.git</developerConnection>
-    <tag>HEAD</tag>
+    <connection>scm:git:https://github.com/hsbc/jdbc-inquirer.git</connection>
   </scm>
 
   <issueManagement>
