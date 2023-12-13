@@ -7,6 +7,7 @@ import org.junit.platform.launcher.listeners.SummaryGeneratingListener;
 import org.junit.platform.launcher.listeners.TestExecutionSummary;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.Duration;
 import java.time.Instant;
@@ -150,40 +151,47 @@ public class JDBCInquirer {
      */
     public static void timeExtractionTest(Map<String, String> arguments) throws ClassNotFoundException, SQLException {
         String sqlQuery = arguments.get(Arguments.SQL);
-        Connection conn = getConnection(arguments);
-        Statement statement = conn.createStatement();
 
         LOG.info("Running SQL query: " + sqlQuery);
 
         Instant start = Instant.now();
 
-        NullOutputStream emptyStream = new NullOutputStream();
-        ResultSet resultSet = statement.executeQuery(sqlQuery);
-        int numberOfColumns = resultSet.getMetaData().getColumnCount();
-        int numberOfRows = 0;
+        try(NullOutputStream emptyStream = new NullOutputStream();
+            Connection conn = getConnection(arguments);
+            Statement statement = conn.createStatement();
+            ) {
+            ResultSet resultSet = statement.executeQuery(sqlQuery);
+            int numberOfColumns = resultSet.getMetaData().getColumnCount();
+            int numberOfRows = 0;
 
-        while (resultSet.next()) {
-            for(int i = 1; i <= numberOfColumns; ++i )
-                emptyStream.write(resultSet.getObject(i));
+            while (resultSet.next()) {
+                for(int i = 1; i <= numberOfColumns; ++i )
+                    emptyStream.write(resultSet.getObject(i));
 
-            ++numberOfRows;
+                ++numberOfRows;
+            }
+
+            Instant finish = Instant.now();
+
+            LOG.info("Time take to run and extract: " + Duration.between(start, finish).toMillis() + " ms");
+            LOG.info("Number of Rows: " + numberOfRows);
+            LOG.info("JDBC extraction test successful!");
+
+            statement.close();
+            conn.close();
+            emptyStream.close();
+        } catch(IOException e) {
+            LOG.severe("Unable to close stream");
+            LOG.severe(e.getMessage());
+            e.printStackTrace(System.err);
         }
-
-        Instant finish = Instant.now();
-
-        LOG.info("Time take to run and extract: " + Duration.between(start, finish).toMillis() + " ms");
-        LOG.info("Number of Rows: " + numberOfRows);
-        LOG.info("JDBC extraction test successful!");
-
-        statement.close();
-        conn.close();
     }
 
     /**
      * <p>Runs tests to test the JDBC spec.</p>
      */
     public static void runExtendedTests() {
-        System.out.println("Starting tests ---");
+        LOG.info("Starting tests ---");
 
         LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
                 .selectors(selectPackage("com.hsbc.engineering"))
@@ -201,10 +209,10 @@ public class JDBCInquirer {
             TestPlan testPlan = launcher.discover(request);
 
             for (TestIdentifier root : testPlan.getRoots()) {
-                System.out.println("Root: " + root.toString());
+                LOG.info("Root: " + root.toString());
 
                 for (TestIdentifier test : testPlan.getChildren(root)) {
-                    System.out.println("Found test: " + test.toString());
+                    LOG.info("Found test: " + test.toString());
                 }
             }
             // Execute test plan
@@ -216,7 +224,8 @@ public class JDBCInquirer {
             LOG.severe("Failed tests");
             summary.getFailures().forEach(f -> System.out.println(f.getTestIdentifier().getLegacyReportingName() + " - " + f.getException()));
         }
+        
         summary.printTo(new PrintWriter(System.out));
-        System.out.println("Completing tests ---");
+        LOG.info("Completing tests ---");
     }
 }
