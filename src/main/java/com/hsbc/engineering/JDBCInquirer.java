@@ -159,8 +159,8 @@ public class JDBCInquirer {
         try(NullOutputStream emptyStream = new NullOutputStream();
             Connection conn = getConnection(arguments);
             Statement statement = conn.createStatement();
-            ) {
             ResultSet resultSet = statement.executeQuery(sqlQuery);
+            ) {
             int numberOfColumns = resultSet.getMetaData().getColumnCount();
             int numberOfRows = 0;
 
@@ -176,10 +176,7 @@ public class JDBCInquirer {
             LOG.info("Time take to run and extract: " + Duration.between(start, finish).toMillis() + " ms");
             LOG.info("Number of Rows: " + numberOfRows);
             LOG.info("JDBC extraction test successful!");
-
-            statement.close();
-            conn.close();
-            emptyStream.close();
+            
         } catch(IOException e) {
             LOG.severe("Unable to close stream");
             LOG.severe(e.getMessage());
