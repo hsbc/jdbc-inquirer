@@ -9,8 +9,6 @@ import org.junit.platform.launcher.listeners.TestExecutionSummary;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.Duration;
-import java.time.Instant;
 import java.util.*;
 import java.util.logging.Logger;
 import java.sql.*;
@@ -154,9 +152,9 @@ public class JDBCInquirer {
 
         LOG.info("Running SQL query: " + sqlQuery);
 
-        Instant start = Instant.now();
+        long start = System.currentTimeMillis();
 
-        try(NullOutputStream emptyStream = new NullOutputStream();
+        try(
             Connection conn = getConnection(arguments);
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(sqlQuery);
@@ -166,21 +164,17 @@ public class JDBCInquirer {
 
             while (resultSet.next()) {
                 for(int i = 1; i <= numberOfColumns; ++i )
-                    emptyStream.write(resultSet.getObject(i));
+                    resultSet.getObject(i);
 
                 ++numberOfRows;
             }
 
-            Instant finish = Instant.now();
+            long finish = System.currentTimeMillis();
 
-            LOG.info("Time take to run and extract: " + Duration.between(start, finish).toMillis() + " ms");
+            LOG.info("Time take to run and extract: " + (finish - start) + " ms");
             LOG.info("Number of Rows: " + numberOfRows);
             LOG.info("JDBC extraction test successful!");
             
-        } catch(IOException e) {
-            LOG.severe("Unable to close stream");
-            LOG.severe(e.getMessage());
-            e.printStackTrace(System.err);
         }
     }
 
