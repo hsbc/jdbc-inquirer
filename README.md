@@ -15,7 +15,7 @@ The **jdbc-inquirer **could also be used to perform health checks.
 
 ```shell
 #Grab jdbc-inquirer jar
-curl -O --url 'https://repo1.maven.org/maven2/com/hsbc/engineering/jdbc-inquirer/1.0.1/jdbc-inquirer-1.0.1.jar'
+curl -O --url 'https://repo1.maven.org/maven2/com/hsbc/engineering/jdbc-inquirer/1.0.15/jdbc-inquirer-1.0.15.jar'
 
 
 #Grab a driver jar. An example - hive jdbc

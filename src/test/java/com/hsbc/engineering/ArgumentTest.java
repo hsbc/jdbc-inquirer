@@ -14,37 +14,40 @@ public class ArgumentTest {
     public static void setup() {
         arguments = new Arguments(new HashMap<>() {{
             put(Arguments.CLASS_NAME, Arguments.CLASS_NAME);
-            put(Arguments.USER,       Arguments.USER);
-            put(Arguments.PWD, Arguments.PWD);
-            put(Arguments.URL,        Arguments.URL);
-            put(Arguments.SQL,        Arguments.SQL);
-            put(Arguments.RUN_EXTENDED_TESTS, "true");
-        }});
+        put(Arguments.USER,       Arguments.USER);
+        put(Arguments.PWD, Arguments.PWD);
+        put(Arguments.URL,        Arguments.URL);
+        put(Arguments.SQL,        Arguments.SQL);
+        put(Arguments.RUN_EXTENDED_TESTS, "true");
+}});
     }
 
     @DisplayName("Checks if null functions checks for empty, null and blank Strings")
     @Test
     void nullCheck() {
-        Assertions.assertTrue(arguments.isNullAndEmpty(""));
-        Assertions.assertTrue(arguments.isNullAndEmpty(null));
-        Assertions.assertTrue(arguments.isNullAndEmpty(new String()));
-        Assertions.assertTrue(arguments.isNullAndEmpty(" "));
-        Assertions.assertFalse(arguments.isNullAndEmpty("A"));
+        Assertions.assertTrue(arguments.isNullOrEmpty(""));
+        Assertions.assertTrue(arguments.isNullOrEmpty(null));
+        Assertions.assertTrue(arguments.isNullOrEmpty(new String()));
+        Assertions.assertTrue(arguments.isNullOrEmpty(" "));
+        Assertions.assertFalse(arguments.isNullOrEmpty("A"));
     }
 
     @DisplayName("Check that the mandatory null checks are done")
     @Test
     void checkForMissingMandatoryFields() {
-        Assertions.assertThrows(NullPointerException.class, Arguments::new);
+        Assertions.assertThrows(IllegalArgumentException.class, Arguments::new);
         Map<String, String> args = new HashMap<>();
 
-        args.put(Arguments.USER, Arguments.USER);
-        Assertions.assertThrows(NullPointerException.class, () -> new Arguments(args));
+        //This should be missing CLASS_NAME and URL
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Arguments(args));
 
         args.put(Arguments.CLASS_NAME, Arguments.CLASS_NAME);
-        Assertions.assertThrows(NullPointerException.class, () -> new Arguments(args));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Arguments(args));
 
         args.put(Arguments.URL, Arguments.URL);
+        Assertions.assertDoesNotThrow(() -> { new Arguments(args); });
+
+        args.put(Arguments.USER, Arguments.USER);
         Assertions.assertDoesNotThrow(() -> { new Arguments(args); });
 
         args.put(Arguments.PWD, Arguments.PWD);

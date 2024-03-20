@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Map;
 
 public class ConnectionTest {
@@ -18,13 +17,12 @@ public class ConnectionTest {
     static final String password = "";
     static final String url = "jdbc:h2:./target/test";
 
-    static final Map<String, String> args = new HashMap<>() {{
-        put(Arguments.CLASS_NAME,"org.h2.Driver");
-        put(Arguments.USER, user);
-        put(Arguments.PWD, password);
-        put(Arguments.URL, url);
-        put(Arguments.SQL, "SELECT 2");
-    }};
+    static final Map<String, String> args = Map.of(
+        Arguments.CLASS_NAME, "org.h2.Driver",
+        Arguments.USER, user,
+        Arguments.PWD, password,
+        Arguments.URL, url,
+        Arguments.SQL, "SELECT 2");
 
     @BeforeAll
     static void setUp() throws SQLException {

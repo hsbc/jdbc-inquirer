@@ -1,9 +1,7 @@
 package com.hsbc.engineering;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -91,7 +89,7 @@ public class Arguments {
      */
     public Map<String, String> set(Map<String, String> systemEnvs) {
         final boolean bool_run_extended_tests = Boolean.parseBoolean(systemEnvs.get(RUN_EXTENDED_TESTS));
-        String sqlQuery = isNullAndEmpty(systemEnvs.get(SQL)) ? DEFAULT_SQL : systemEnvs.get(SQL);
+        String sqlQuery = isNullOrEmpty(systemEnvs.get(SQL)) ? DEFAULT_SQL : systemEnvs.get(SQL);
 
         arguments = new HashMap<>() {{
                 put(CLASS_NAME, systemEnvs.get(CLASS_NAME));
@@ -99,7 +97,7 @@ public class Arguments {
                 put(RUN_EXTENDED_TESTS, Boolean.toString(bool_run_extended_tests));
                 put(RUN_PERFORMANCE_EXTRACTION_TEST, Boolean.toString(bool_run_performance_extraction_test));
                 put(SQL, DEFAULT_SQL);
-            }};
+        }};
 
         if (systemEnvs.containsKey(USER))
             arguments.put(USER, systemEnvs.get(USER));
@@ -145,17 +143,14 @@ public class Arguments {
      * @param arguments The input args to validate against
      */
     public void checkForNulls(Map<String, String> arguments) {
-        List<String> nullArguments = arguments.keySet()
+        if (arguments.keySet()
                 .stream()
                 .filter(a -> a.matches(String.join("|", CLASS_NAME, URL)))
-                .filter(a -> isNullAndEmpty(arguments.get(a)))
-                .collect(Collectors.toList());
-
-        if (nullArguments.size() > 0) {
-            System.out.println("The following mandatory arguments were null or blank");
-            nullArguments.forEach(System.out::println);
-            help();
-        }
+                .filter(a -> isNullOrEmpty(arguments.get(a)))
+                .peek(a -> System.out.println("The following mandatory argument was null or blank: " + a))
+            .anyMatch(a -> true)) {
+                help();
+            }
     }
 
     /**
@@ -178,7 +173,7 @@ public class Arguments {
         System.out.println("           java -cp \"target/*\" com.hsbc.engineering.JDBCInquirer -DJDBC_CLASS_NAME=\"org.apache.hive.jdbc.HiveDriver\" -DJDBC_USER=\"I_AM_A_USER\" -DJDBC_PASSWORD=\"I_AM_A_TOKEN\" -DJDBC_URL=\"jdbc:hive2://server:9999/schema\"");
         System.out.println("           java -cp \"target/*\" com.hsbc.engineering.JDBCInquirer -DJDBC_CLASS_NAME=\"org.apache.hive.jdbc.HiveDriver\" -DJDBC_USER=\"I_AM_A_USER\" -DJDBC_PASSWORD=\"I_AM_A_TOKEN\" -DJDBC_URL=\"jdbc:hive2://server:9999/schema\" -DJDBC_SQL=\"show databases\"");
 
-        throw new NullPointerException("Mandatory fields are not registered");
+        throw new IllegalArgumentException("Mandatory fields are not registered");
     }
 
     /**
@@ -187,8 +182,8 @@ public class Arguments {
      * @param s a {@link java.lang.String} object
      * @return a boolean
      */
-    public boolean isNullAndEmpty(String s) {
-        if (Objects.isNull(s) || s.isBlank() || s.isEmpty() || (s.trim().length() < 1))
+    public boolean isNullOrEmpty(String s) {
+        if (s == null || s.isBlank())
             return true;
 
         return false;
