@@ -26,7 +26,7 @@ public class JDBCSpecTest {
     void check_if_list_of_tables_can_be_extracted(Connection conn) {
         int count = 0;
 
-        try (ResultSet rs = conn.getMetaData().getTables(null, null, "%", null)) {
+        try (conn; ResultSet rs = conn.getMetaData().getTables(null, null, "%", null)) {
             while (rs.next()) {
                 if (rs.getString(3).length() > 0) {
                     ++count;

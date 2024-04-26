@@ -12,14 +12,14 @@ public class ArgumentTest {
     static Arguments arguments;
     @BeforeAll
     public static void setup() {
-        arguments = new Arguments(new HashMap<>() {{
-            put(Arguments.CLASS_NAME, Arguments.CLASS_NAME);
-        put(Arguments.USER,       Arguments.USER);
-        put(Arguments.PWD, Arguments.PWD);
-        put(Arguments.URL,        Arguments.URL);
-        put(Arguments.SQL,        Arguments.SQL);
-        put(Arguments.RUN_EXTENDED_TESTS, "true");
-}});
+        arguments = new Arguments(Map.of(
+            Arguments.CLASS_NAME,   Arguments.CLASS_NAME,
+            Arguments.USER,         Arguments.USER,
+            Arguments.PWD,          Arguments.PWD,
+            Arguments.URL,          Arguments.URL,
+            Arguments.SQL,          Arguments.SQL,
+            Arguments.RUN_EXTENDED_TESTS, "true"
+        ));
     }
 
     @DisplayName("Checks if null functions checks for empty, null and blank Strings")
