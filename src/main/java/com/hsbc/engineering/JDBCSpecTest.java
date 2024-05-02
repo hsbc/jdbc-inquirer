@@ -8,7 +8,6 @@ import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.stream.Stream;
@@ -27,21 +26,17 @@ public class JDBCSpecTest {
     void check_if_list_of_tables_can_be_extracted(Connection conn) {
         int count = 0;
 
-        try {
-            DatabaseMetaData md = conn.getMetaData();
-            ResultSet rs = md.getTables(null, null, "%", null);
-
+        try (conn; ResultSet rs = conn.getMetaData().getTables(null, null, "%", null)) {
             while (rs.next()) {
-                if(rs.getString(3).length() > 0)
+                if (rs.getString(3).length() > 0) {
                     ++count;
+                }
             }
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace(System.err);
         }
-        finally {
-            assertNotEquals(count, 0);
-        }
-    /** {@inheritDoc} */
+
+        assertNotEquals(count, 0);
     }
 }
 
