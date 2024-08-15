@@ -17,8 +17,6 @@ jobs:
       contents: read
       packages: write
 
-    needs: unit_tests
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
