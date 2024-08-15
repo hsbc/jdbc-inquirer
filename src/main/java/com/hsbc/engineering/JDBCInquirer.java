@@ -49,6 +49,12 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPacka
  *
  */
 public class JDBCInquirer {
+
+    /**
+     * EmptyContructor to fix issue with Java 21 asking for java doc - warning: use of default constructor, which does not provide a comment
+     */
+    public JDBCInquirer() { }
+    
     /**
      * Default logger
      */
