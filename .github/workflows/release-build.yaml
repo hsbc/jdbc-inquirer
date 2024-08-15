@@ -37,9 +37,8 @@ jobs:
               "configuration": {}
             }]
 
-      - name: Upload snapshot
-        run: mvn \
-            --no-transfer-progress \
-            --batch-mode \
-            -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }} \
-            clean deploy
+      - name: Verify package
+        run: mvn --batch-mode verify
+
+      - name: Release package
+        run: mvn --batch-mode -DskipTests=true releaser:release
