@@ -17,9 +17,16 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * <p>JDBCSpecTest class.</p>
  *
+ * For running JDBC Spec tests
  */
 public class JDBCSpecTest {
+    
+    /**  
+     * EmptyContructor to fix issue with Java 21 asking for java doc - warning: use of default constructor, which does not provide a comment
+     */
+    public JDBCSpecTest() { }
 
+    //Check for tables
     @DisplayName("Checks if tables can be extracted via jdbc")
     @ParameterizedTest
     @ArgumentsSource(ConnectionProvider.class)
