@@ -55,7 +55,7 @@
     <testcontainers.version>1.20.1</testcontainers.version>
     <junit.version>5.10.2</junit.version>
     <h2.version>2.2.224</h2.version>
-    <postgres.version>42.7.3</postgres.version>
+    <postgres.version>42.7.4</postgres.version>
   </properties>
 
   <dependencyManagement>
