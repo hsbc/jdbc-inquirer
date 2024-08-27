@@ -7,7 +7,6 @@ import org.junit.platform.launcher.listeners.SummaryGeneratingListener;
 import org.junit.platform.launcher.listeners.TestExecutionSummary;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 import java.util.logging.Logger;
@@ -50,6 +49,12 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPacka
  *
  */
 public class JDBCInquirer {
+
+    /**
+     * EmptyContructor to fix issue with Java 21 asking for java doc - warning: use of default constructor, which does not provide a comment
+     */
+    public JDBCInquirer() { }
+    
     /**
      * Default logger
      */
