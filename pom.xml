@@ -55,7 +55,7 @@
     <testcontainers.version>1.20.1</testcontainers.version>
     <junit.version>5.10.2</junit.version>
     <h2.version>2.2.224</h2.version>
-    <postgres.version>42.7.3</postgres.version>
+    <postgres.version>42.7.6</postgres.version>
   </properties>
 
   <dependencyManagement>
@@ -141,7 +141,7 @@
       <plugin>
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>jib-maven-plugin</artifactId>
-        <version>3.4.3</version>
+        <version>3.4.5</version>
         <configuration>
           <allowInsecureRegistries>true</allowInsecureRegistries>
           <from>
@@ -190,7 +190,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>3.3.0</version>
+        <version>3.4.1</version>
         <configuration>
           <mainClass>com.hsbc.engineering.JDBCInquirer</mainClass>
         </configuration>
@@ -296,7 +296,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-gpg-plugin</artifactId>
-                    <version>3.2.4</version>
+                    <version>3.2.7</version>
                     <configuration>
                         <gpgArguments>
                             <arg>--pinentry-mode</arg>
