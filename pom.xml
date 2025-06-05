@@ -53,9 +53,9 @@
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
     <testcontainers.version>1.20.1</testcontainers.version>
-    <junit.version>5.10.2</junit.version>
-    <h2.version>2.2.224</h2.version>
-    <postgres.version>42.7.3</postgres.version>
+    <junit.version>5.11.0</junit.version>
+    <h2.version>2.3.232</h2.version>
+    <postgres.version>42.7.6</postgres.version>
   </properties>
 
   <dependencyManagement>
@@ -110,7 +110,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.7.0</version>
+        <version>3.11.2</version>
         <executions>
           <execution>
               <id>attach-javadocs</id>
@@ -127,7 +127,7 @@
       <plugin>
         <groupId>com.github.danielflower.mavenplugins</groupId>
         <artifactId>multi-module-maven-release-plugin</artifactId>
-        <version>3.6.4</version>
+        <version>3.8.0</version>
         <configuration>
             <releaseProfiles>
                 <releaseProfile>release</releaseProfile>
@@ -136,12 +136,12 @@
     </plugin>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.2.5</version>
+        <version>3.5.3</version>
       </plugin>
       <plugin>
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>jib-maven-plugin</artifactId>
-        <version>3.4.3</version>
+        <version>3.4.5</version>
         <configuration>
           <allowInsecureRegistries>true</allowInsecureRegistries>
           <from>
@@ -190,7 +190,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>3.3.0</version>
+        <version>3.4.1</version>
         <configuration>
           <mainClass>com.hsbc.engineering.JDBCInquirer</mainClass>
         </configuration>
@@ -232,7 +232,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-release-plugin</artifactId>
-        <version>3.0.1</version>
+        <version>3.1.1</version>
         <configuration>
           <scmCommentPrefix>[skip ci] [maven-release-plugin] </scmCommentPrefix>
           <tagNameFormat>@{project.version}</tagNameFormat>
@@ -251,7 +251,7 @@
       <plugins>
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
-          <version>3.3.2</version>
+          <version>3.4.0</version>
         </plugin>
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
@@ -259,11 +259,11 @@
         </plugin>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.12.1</version>
+          <version>3.14.0</version>
         </plugin>
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
-          <version>3.4.1</version>
+          <version>3.4.2</version>
           <configuration>
             <archive>
                 <manifest>
@@ -296,7 +296,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-gpg-plugin</artifactId>
-                    <version>3.2.4</version>
+                    <version>3.2.7</version>
                     <configuration>
                         <gpgArguments>
                             <arg>--pinentry-mode</arg>
